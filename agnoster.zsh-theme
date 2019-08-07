@@ -23,13 +23,12 @@
 # appropriate.
 
 ### Segments of the prompt, default order declaration
-
 typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
     prompt_status
-    prompt_context
+#    prompt_context
     prompt_virtualenv
-    prompt_dir
-    prompt_git
+#    prompt_dir
+#    prompt_git
     prompt_end
 )
 
@@ -42,13 +41,13 @@ if [[ -z "$PRIMARY_FG" ]]; then
 fi
 
 # Characters
-SEGMENT_SEPARATOR="\ue0b0"
+SEGMENT_SEPARATOR="$"
 PLUSMINUS="\u00b1"
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
-CROSS="\u2718"
+CROSS="x"
 LIGHTNING="\u26a1"
-GEAR="\u2699"
+GEAR="•"
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -130,7 +129,7 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
 
-  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
+  [[ -n "$symbols" ]] && prompt_segment $CURRENT_BG default " $symbols "
 }
 
 # Display current virtual environment
@@ -171,3 +170,4 @@ prompt_agnoster_setup() {
 }
 
 prompt_agnoster_setup "$@"
+
